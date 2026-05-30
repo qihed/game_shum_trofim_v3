@@ -1,0 +1,501 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Oswald:wght@400;500;600&family=Source+Serif+4:ital,wght@0,400;0,500;1,400&display=swap');
+
+:root {
+  --bg-deep: #070706;
+  --bg-mid: #0d0a07;
+  --bg-surface: #15100a;
+  --panel: rgba(20, 16, 10, 0.78);
+  --panel-solid: #14100a;
+  --border-gold: rgba(180, 132, 62, 0.35);
+  --border-subtle: rgba(180, 132, 62, 0.18);
+  --accent: #b88a45;
+  --accent-light: #e1c083;
+  --text-main: #eadcc2;
+  --text-muted: #a89472;
+  --positive: #9fb56a;
+  --negative: #c85d4d;
+  --glow-warm: rgba(184, 138, 69, 0.22);
+  --glow-beam: rgba(225, 192, 131, 0.14);
+  --radius: 14px;
+  --radius-sm: 10px;
+  --shadow-panel: 0 24px 48px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(225, 192, 131, 0.06);
+  --shadow-glow: 0 0 24px rgba(184, 138, 69, 0.15);
+
+  --display: 'Oswald', 'Arial Narrow', sans-serif;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --body: 'Source Serif 4', Georgia, serif;
+  --mono: ui-monospace, Consolas, monospace;
+
+  /* legacy aliases */
+  --background: var(--bg-deep);
+  --foreground: var(--text-main);
+  --text: var(--text-muted);
+  --text-h: var(--text-main);
+  --bg: var(--bg-deep);
+  --border: var(--border-gold);
+  --surface: var(--panel-solid);
+  --primary: var(--accent);
+  --primary-foreground: var(--bg-deep);
+  --code-bg: rgba(20, 16, 10, 0.6);
+  --accent-bg: rgba(184, 138, 69, 0.12);
+  --accent-border: rgba(184, 138, 69, 0.45);
+  --social-bg: rgba(20, 16, 10, 0.5);
+  --shadow: var(--shadow-panel);
+  --sans: var(--body);
+  --heading: var(--serif);
+
+  font: 18px/1.6 var(--body);
+  color-scheme: dark;
+  color: var(--text-main);
+  background: var(--bg-deep);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+#root {
+  min-height: 100svh;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-deep);
+  font-family: var(--body);
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--serif);
+  font-weight: 500;
+  color: var(--text-main);
+}
+
+h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin: 0 0 0.5em;
+}
+
+h2 {
+  font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.5em;
+}
+
+p {
+  margin: 0;
+}
+
+code {
+  font-family: var(--mono);
+  font-size: 0.85em;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--code-bg);
+  color: var(--text-main);
+}
+
+/* ── Cinematic background layers ── */
+.cinematicBg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.cinematicBg__base {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 78% 62% at 12% 42%, rgba(44, 30, 14, 0.92) 0%, transparent 62%),
+    radial-gradient(ellipse 60% 46% at 78% 84%, rgba(12, 20, 30, 0.52) 0%, transparent 58%),
+    linear-gradient(165deg, #080706 0%, #0e0a07 48%, #0b0e13 100%);
+}
+
+.cinematicBg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 26% 22%, rgba(255, 200, 120, 0.05) 0, transparent 42%),
+    radial-gradient(circle at 76% 70%, rgba(110, 130, 170, 0.05) 0, transparent 44%);
+  mix-blend-mode: screen;
+  opacity: 0.8;
+}
+
+.cinematicBg__spotlight {
+  position: absolute;
+  inset: 0;
+  opacity: 0.95;
+  background:
+    radial-gradient(circle at 2.5% 46%, rgba(225, 192, 131, 0.32) 0 42px, transparent 44px),
+    radial-gradient(circle at 3.5% 46%, rgba(225, 192, 131, 0.18) 0 110px, transparent 112px),
+    radial-gradient(circle at 6% 46%, rgba(184, 138, 69, 0.14) 0 220px, transparent 222px);
+  filter: blur(1px);
+  mix-blend-mode: screen;
+}
+
+.cinematicBg--hero .cinematicBg__spotlight {
+  opacity: 1;
+}
+
+.cinematicBg--game .cinematicBg__spotlight {
+  opacity: 1;
+}
+
+.cinematicBg__beam {
+  position: absolute;
+  top: -18%;
+  left: -22%;
+  width: 92%;
+  height: 140%;
+  opacity: 1;
+  transform: rotate(-6deg);
+  filter: blur(14px);
+  background:
+    radial-gradient(ellipse 46% 70% at 16% 50%, rgba(225, 192, 131, 0.18) 0%, transparent 60%),
+    linear-gradient(
+      90deg,
+      rgba(225, 192, 131, 0.22) 0%,
+      rgba(184, 138, 69, 0.16) 18%,
+      rgba(225, 192, 131, 0.08) 34%,
+      rgba(225, 192, 131, 0.02) 52%,
+      transparent 68%
+    );
+  clip-path: polygon(0 42%, 0 58%, 62% 78%, 62% 22%);
+  mix-blend-mode: screen;
+}
+
+.cinematicBg--game .cinematicBg__beam {
+  opacity: 1;
+}
+
+.cinematicBg--hero .cinematicBg__beam {
+  opacity: 1;
+  filter: blur(12px);
+}
+
+.cinematicBg__beamHaze {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.9;
+  background:
+    radial-gradient(ellipse 60% 80% at 14% 50%, rgba(225, 192, 131, 0.11) 0%, transparent 62%),
+    radial-gradient(ellipse 36% 56% at 14% 50%, rgba(225, 192, 131, 0.09) 0%, transparent 60%);
+  filter: blur(18px);
+  mix-blend-mode: screen;
+  clip-path: polygon(0 40%, 0 60%, 64% 80%, 64% 20%);
+}
+
+.cinematicBg__beamDust {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.75;
+  background-image:
+    radial-gradient(circle at 12% 42%, rgba(225, 192, 131, 0.35) 0 1px, transparent 2px),
+    radial-gradient(circle at 20% 48%, rgba(225, 192, 131, 0.25) 0 1px, transparent 2px),
+    radial-gradient(circle at 26% 60%, rgba(225, 192, 131, 0.2) 0 1px, transparent 2px),
+    radial-gradient(circle at 34% 52%, rgba(225, 192, 131, 0.18) 0 1px, transparent 2px),
+    radial-gradient(circle at 42% 44%, rgba(225, 192, 131, 0.12) 0 1px, transparent 2px);
+  mix-blend-mode: screen;
+  filter: blur(0.2px);
+  clip-path: polygon(0 40%, 0 60%, 64% 80%, 64% 20%);
+  animation: beamDustDrift 10s ease-in-out infinite;
+}
+
+.cinematicBg__texture {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.cinematicBg__texture--strip {
+  background-image: url('/film-textures/film-strip.png');
+  mix-blend-mode: screen;
+  opacity: 0.12;
+  filter: sepia(0.32) contrast(1.06);
+}
+
+.cinematicBg__texture--burnFrame {
+  background-image: url('/film-textures/film-burn-frame.png');
+  mix-blend-mode: screen;
+  opacity: 0.22;
+  background-size: 108% 108%;
+  filter: saturate(1.25) blur(0.3px);
+  animation: burnDrift 14s ease-in-out infinite;
+}
+
+.cinematicBg__texture--dustBurn {
+  background-image: url('/film-textures/film-dust-burn.png');
+  mix-blend-mode: screen;
+  opacity: 0.2;
+  background-size: cover;
+  filter: saturate(1.2) contrast(1.05);
+  animation: dustTexturePulse 9s ease-in-out infinite;
+}
+
+.cinematicBg__texture--bokeh {
+  background-image: url('/film-textures/bokeh-leaks.png');
+  mix-blend-mode: screen;
+  opacity: 0.16;
+  background-size: 120% auto;
+  background-position: 50% 12%;
+  filter: blur(0.2px) saturate(1.15);
+}
+
+.cinematicBg__lightLeak {
+  position: absolute;
+  pointer-events: none;
+  filter: blur(24px) saturate(120%);
+  mix-blend-mode: screen;
+  opacity: 0.34;
+  animation: leakPulse 7s ease-in-out infinite;
+}
+
+.cinematicBg__lightLeak--left {
+  top: -8%;
+  left: -12%;
+  width: 46%;
+  height: 72%;
+  background:
+    radial-gradient(ellipse at 0% 35%, rgba(255, 170, 75, 0.42) 0%, rgba(255, 120, 60, 0.22) 34%, transparent 72%);
+}
+
+.cinematicBg__lightLeak--right {
+  right: -14%;
+  bottom: -10%;
+  width: 42%;
+  height: 66%;
+  background:
+    radial-gradient(ellipse at 100% 68%, rgba(120, 160, 255, 0.24) 0%, rgba(120, 90, 190, 0.18) 28%, transparent 68%);
+  animation-delay: 1.8s;
+}
+
+.cinematicBg__halation {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 38% 24% at 8% 46%, rgba(255, 208, 132, 0.22) 0%, transparent 76%),
+    radial-gradient(ellipse 16% 13% at 6% 46%, rgba(255, 225, 175, 0.32) 0%, transparent 84%);
+  mix-blend-mode: screen;
+  opacity: 0.8;
+  filter: blur(8px);
+}
+
+.cinematicBg__glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+}
+
+.cinematicBg__glow--warm {
+  width: 40vw;
+  height: 40vw;
+  top: 10%;
+  left: 5%;
+  background: var(--glow-warm);
+  opacity: 0.5;
+}
+
+.cinematicBg__glow--cool {
+  width: 30vw;
+  height: 30vw;
+  bottom: 5%;
+  right: 10%;
+  background: rgba(20, 30, 50, 0.25);
+}
+
+.cinematicBg__vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 75% 70% at 50% 45%,
+    transparent 30%,
+    rgba(0, 0, 0, 0.66) 100%
+  );
+}
+
+.cinematicBg__grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.29;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 120px 120px;
+  mix-blend-mode: overlay;
+  filter: contrast(150%) brightness(115%);
+  animation: grainShift 3.2s steps(6) infinite;
+}
+
+.cinematicBg__grain--fine {
+  opacity: 0.13;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n2'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.35' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n2)'/%3E%3C/svg%3E");
+  background-size: 90px 90px;
+  mix-blend-mode: soft-light;
+  filter: contrast(135%);
+  animation: grainShift 2.6s steps(5) infinite;
+}
+
+.cinematicBg__scratches {
+  position: absolute;
+  inset: 0;
+  opacity: 0.115;
+  background:
+    repeating-linear-gradient(
+      97deg,
+      transparent 0px,
+      transparent 140px,
+      rgba(255, 255, 255, 0.14) 140px,
+      rgba(255, 255, 255, 0.14) 141px
+    ),
+    repeating-linear-gradient(
+      89deg,
+      transparent 0px,
+      transparent 220px,
+      rgba(255, 255, 255, 0.08) 220px,
+      rgba(255, 255, 255, 0.08) 221px
+    );
+  mix-blend-mode: overlay;
+  animation: scratchesDrift 18s linear infinite;
+}
+
+.cinematicBg__scanlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.16;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.07) 0px,
+    rgba(255, 255, 255, 0.07) 1px,
+    transparent 2px,
+    transparent 4px
+  );
+  mix-blend-mode: soft-light;
+}
+
+.cinematicBg__frame {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 230, 190, 0.06),
+    inset 0 0 90px rgba(0, 0, 0, 0.38),
+    inset 0 0 220px rgba(0, 0, 0, 0.48);
+  border-radius: 2px;
+}
+
+.cinematicBg__dust {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(225, 192, 131, 0.12) 0 1px, transparent 1px),
+    radial-gradient(circle at 60% 55%, rgba(225, 192, 131, 0.08) 0 1px, transparent 1px),
+    radial-gradient(circle at 35% 70%, rgba(225, 192, 131, 0.1) 0 1px, transparent 1px),
+    radial-gradient(circle at 75% 25%, rgba(225, 192, 131, 0.06) 0 1px, transparent 1px);
+  background-size: 100% 100%;
+  opacity: 0.85;
+  mix-blend-mode: screen;
+  animation: dustFloat 14s ease-in-out infinite;
+}
+
+@keyframes grainShift {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-2%, 1%);
+  }
+  50% {
+    transform: translate(1%, -1%);
+  }
+  75% {
+    transform: translate(-1%, 2%);
+  }
+}
+
+@keyframes dustFloat {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate3d(1.5%, -1%, 0);
+    opacity: 0.95;
+  }
+}
+
+@keyframes beamDustDrift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.68;
+  }
+  50% {
+    transform: translate3d(1.5%, -1.2%, 0);
+    opacity: 0.9;
+  }
+}
+
+@keyframes leakPulse {
+  0%,
+  100% {
+    opacity: 0.28;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    opacity: 0.42;
+    transform: translate3d(1.5%, -1%, 0) scale(1.03);
+  }
+}
+
+@keyframes scratchesDrift {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(1.8%, 0.8%, 0);
+  }
+}
+
+@keyframes burnDrift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1.03);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translate3d(0.6%, -0.7%, 0) scale(1.06);
+    opacity: 0.26;
+  }
+}
+
+@keyframes dustTexturePulse {
+  0%,
+  100% {
+    opacity: 0.17;
+  }
+  50% {
+    opacity: 0.24;
+  }
+}
