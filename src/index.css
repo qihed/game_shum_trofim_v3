@@ -499,3 +499,52 @@ code {
     opacity: 0.24;
   }
 }
+
+@media (max-width: 900px) {
+  .cinematicBg__texture--strip {
+    opacity: 0.09;
+  }
+
+  .cinematicBg__texture--burnFrame {
+    opacity: 0.16;
+    animation: none;
+  }
+
+  .cinematicBg__texture--dustBurn {
+    opacity: 0.14;
+    animation: none;
+  }
+
+  .cinematicBg__texture--bokeh {
+    opacity: 0.1;
+  }
+
+  .cinematicBg__grain {
+    opacity: 0.2;
+    animation-duration: 4.8s;
+  }
+
+  .cinematicBg__grain--fine {
+    opacity: 0.08;
+    animation-duration: 4.2s;
+  }
+
+  .cinematicBg__scanlines {
+    opacity: 0.1;
+  }
+
+  .cinematicBg__lightLeak {
+    opacity: 0.22;
+    animation-duration: 10s;
+  }
+
+  .cinematicBg__beamDust {
+    opacity: 0.45;
+    animation: none;
+  }
+
+  .cinematicBg__scratches {
+    opacity: 0.08;
+    animation: none;
+  }
+}

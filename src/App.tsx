@@ -1,4 +1,5 @@
 import './App.css'
+import { useEffect } from 'react'
 import { CinematicBackground } from './components/cinematic/CinematicBackground'
 import { Header } from './components/cinematic/Header'
 import { StatsPanel } from './components/StatsPanel'
@@ -14,6 +15,13 @@ function App() {
   const game = useGameState()
   const isHero = game.phase === 'welcome' || game.phase === 'passport'
   const showStats = !isHero
+
+  useEffect(() => {
+    if (game.phase !== 'block') return
+    window.requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    })
+  }, [game.phase, game.blockIndex])
 
   return (
     <>
